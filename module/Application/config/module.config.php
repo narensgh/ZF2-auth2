@@ -70,7 +70,8 @@ return array(
     ),
     'controllers'     => array(
         'invokables' => array(
-            'Application\Controller\Index' => 'Application\Controller\IndexController'
+            'Application\Controller\Index' => 'Application\Controller\IndexController',
+            'Application\Controller\Authorize' => 'Application\Controller\AuthorizeController'
         ),
     ),
      'controller_plugins' => array(
@@ -111,11 +112,11 @@ return array(
             'applicationEm' => array(
                 'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
                 'cache' => 'array',
-                'paths' => array(__DIR__ . '/../src/Application/Model/Entity')
+                'paths' => array(__DIR__ . '/../../../src')
             ),
             'orm_default' => array(
                 'drivers' => array(
-                    'Application\Model\Entity' => 'applicationEm'
+                    'Entities' => 'applicationEm'
                 )
             )
         )
