@@ -5,9 +5,9 @@
         "doctrine/doctrine-orm-module": "0.7"
     },
     "autoload": {
-        "psr-0": {
-            "Service\\": "src/Services",
-            "Entity\\": "src/Entities"
+        "psr-4": {
+            "Service\\": "src/Service",
+            "Entity\\": "src/Entity"
         }
     }
 }
