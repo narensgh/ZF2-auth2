@@ -1,18 +1,12 @@
 <?php
 
-/**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/ZendSkeletonApplication for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- */
 namespace Application\Controller;
 
-use Zend\Mvc\Controller\AbstractRestfulController;
+use Application\Controller\BaseController;
 use Zend\View\Model\JsonModel;
+use Service\Authorize;
 
-class AuthorizeController extends AbstractRestfulController
+class AuthorizeController extends BaseController
 {
 
     function __construct()
@@ -32,7 +26,23 @@ class AuthorizeController extends AbstractRestfulController
 
     public function create($data)
     {
-        print_r($data);
-        die('tested');
+        $response = array();
+        $data = (object) $data;
+        $authorize = new Authorize($this->getEntityManager());
+        $inputResponse = $authorize->validateInput($data);
+        if ($inputResponse) {
+            $client = $authorize->validateClient($data);
+        }
+        if ($client) {
+            $authCode = $authorize->getOauthCode();
+            $authResponse = $authorize->setOauthCode($authCode, $data->clientId);
+        }
+        if ($authResponse) {
+            $response = array(
+                'code' => $authCode
+            );
+        }
+        return new JsonModel(array('response' => $response));
     }
+
 }
