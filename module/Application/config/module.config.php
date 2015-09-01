@@ -116,7 +116,7 @@ return array(
             ),
             'orm_default' => array(
                 'drivers' => array(
-                    'Entities' => 'applicationEm'
+                    'Entity' => 'applicationEm'
                 )
             )
         )
