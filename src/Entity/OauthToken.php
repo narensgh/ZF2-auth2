@@ -43,9 +43,9 @@ class OauthToken
     private $updateTime;
 
     /**
-     * @var \Entities\User
+     * @var \Entity\User
      *
-     * @ORM\ManyToOne(targetEntity="Entities\User")
+     * @ORM\ManyToOne(targetEntity="Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="user_id", referencedColumnName="user_id", nullable=true)
      * })
@@ -135,10 +135,10 @@ class OauthToken
     /**
      * Set user
      *
-     * @param \Entities\User $user
+     * @param \Entity\User $user
      * @return OauthToken
      */
-    public function setUser(\Entities\User $user = null)
+    public function setUser(\Entity\User $user = null)
     {
         $this->user = $user;
 
@@ -148,7 +148,7 @@ class OauthToken
     /**
      * Get user
      *
-     * @return \Entities\User 
+     * @return \Entity\User 
      */
     public function getUser()
     {
