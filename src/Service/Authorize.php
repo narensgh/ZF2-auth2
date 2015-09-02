@@ -89,9 +89,9 @@ class Authorize
     public function setOauthCode($authCode, $client)
     {
         $oauthCode = new OauthCode();
-        $oauthCode->setClientId($client);
+        $oauthCode->setClient($client);
         $oauthCode->setCode($authCode);
-        $oauthCode->setExpired(false);
+        $oauthCode->setExpired('false');
         try {
             $this->em->persist($oauthCode);
             $this->em->flush();
