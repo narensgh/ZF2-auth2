@@ -35,7 +35,7 @@ class AuthorizeController extends BaseController
         }
         if ($client) {
             $authCode = $authorize->getOauthCode();
-            $authResponse = $authorize->setOauthCode($authCode, $data->clientId);
+            $authResponse = $authorize->setOauthCode($authCode, $client);
         }
         if ($authResponse) {
             $response = array(
