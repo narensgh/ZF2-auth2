@@ -100,4 +100,10 @@ class Authorize
             throw new \Exception($ex->getMessage());
         }
     }
+
+    public function setCodeToExpired($clientId, $userId)
+    {
+        
+    }
+
 }

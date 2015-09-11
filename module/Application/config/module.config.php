@@ -71,7 +71,8 @@ return array(
     'controllers'     => array(
         'invokables' => array(
             'Application\Controller\Index' => 'Application\Controller\IndexController',
-            'Application\Controller\Authorize' => 'Application\Controller\AuthorizeController'
+            'Application\Controller\Authorize' => 'Application\Controller\AuthorizeController',
+            'Application\Controller\Accesstoken' => 'Application\Controller\AccesstokenController'
         ),
     ),
      'controller_plugins' => array(
