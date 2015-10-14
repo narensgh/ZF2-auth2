@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * OauthCode
  *
- * @ORM\Table(name="oauth_code", indexes={@ORM\Index(name="client_id", columns={"client_id"})})
+ * @ORM\Table(name="oauth_code", indexes={@ORM\Index(name="client_id", columns={"client_id"}), @ORM\Index(name="user_id", columns={"user_id"})})
  * @ORM\Entity
  */
 class OauthCode
@@ -44,6 +44,16 @@ class OauthCode
      * })
      */
     private $client;
+
+    /**
+     * @var \Entity\User
+     *
+     * @ORM\ManyToOne(targetEntity="Entity\User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="user_id", nullable=true)
+     * })
+     */
+    private $user;
 
 
     /**
@@ -123,5 +133,28 @@ class OauthCode
     public function getClient()
     {
         return $this->client;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Entity\User $user
+     * @return OauthCode
+     */
+    public function setUser(\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

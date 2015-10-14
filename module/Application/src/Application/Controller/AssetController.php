@@ -12,8 +12,8 @@ namespace Application\Controller;
  *
  * @author narendra.singh
  */
-use Zend\File\Transfer\Adapter\Http;
 use Zend\View\Model\JsonModel;
+use Service\Asset;
 
 class AssetController extends BaseController
 {
@@ -38,15 +38,18 @@ class AssetController extends BaseController
         $request = $this->getRequest();
         if ($request->isPost()) {
             $post = array_merge_recursive($request->getPost()->toArray(), $request->getFiles()->toArray());
-            $adapter = new Http();
-            $fileName = $post['Filedata']['name'];
-            $adapter->setDestination('./public/asset/');
-            try {
-                $adapter->receive($fileName);
-                return new JsonModel(array('imagePath' => $adapter->getFileName()));
-            } catch (\Exception $ex) {
-                echo $ex->getMessage();
+            $assetService = new Asset($this->getEntityManager());
+            $assetType = $assetService->getAssetType($post['assetType']);
+            $asset = $assetService->uploadAsset($assetType, $post);
+            if ($asset) {
+                $response = $assetService->saveAsset($asset, $assetType);
             }
+            if ($response) {
+                $asset['assetId'] = $response;
+            } else {
+                $asset = array('error' => 'some error occured while adding asset');
+            }
+            return new JsonModel($asset);
         }
     }
 
